@@ -1,0 +1,954 @@
+  [1m[36m (1.4ms)[0m  [1mCREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" text, "owner" text, "type_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "types" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150317005733')[0m
+  [1m[35m (0.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150310180129')
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "items"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:42:29', '2015-03-17 01:42:29', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:42:29', '2015-03-17 01:42:29', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "types"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:42:29', '2015-03-17 01:42:29', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:42:29', '2015-03-17 01:42:29', 298486374)
+  [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-----------------------------------------------
+ItemsControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#index as HTML
+  [1m[35mItem Load (0.1ms)[0m  SELECT "items".* FROM "items"
+  Rendered items/index.html.erb within layouts/application (7.3ms)
+Completed 200 OK in 1699ms (Views: 1698.2ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-------------------------------------------------
+ItemsControllerTest: test_0003_should create item
+-------------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+Processing by ItemsController#create as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "MyString"], ["description", "MyText"], ["created_at", "2015-03-17 01:42:30.991057"], ["updated_at", "2015-03-17 01:42:30.991057"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items/980190963
+Completed 302 Found in 8ms (ActiveRecord: 0.5ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------------------
+ItemsControllerTest: test_0004_should show item
+-----------------------------------------------
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered items/show.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+ItemsControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#new as HTML
+  Rendered items/_form.html.erb (17.1ms)
+  Rendered items/new.html.erb within layouts/application (20.3ms)
+Completed 200 OK in 22ms (Views: 21.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+----------------------------------------------
+ItemsControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered items/_form.html.erb (2.2ms)
+  Rendered items/edit.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 5ms (Views: 4.7ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+ItemsControllerTest: test_0006_should update item
+-------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#update as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}, "id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items/980190962
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------
+ItemsControllerTest: test_0007_should destroy item
+--------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+Processing by ItemsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "items" WHERE "items"."id" = ?  [["id", 980190962]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+--------------------------------------------------
+TypesControllerTest: test_0007_should destroy type
+--------------------------------------------------
+  [1m[36mType Load (0.2ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "types"
+Processing by TypesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "types" WHERE "types"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/types
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "types"[0m
+  [1m[35m (0.5ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+TypesControllerTest: test_0006_should update type
+-------------------------------------------------
+  [1m[35mType Load (0.2ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#update as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}, "id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types/980190962
+Completed 302 Found in 4ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------
+TypesControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered types/_form.html.erb (2.3ms)
+  Rendered types/edit.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------
+TypesControllerTest: test_0004_should show type
+-----------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered types/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+TypesControllerTest: test_0003_should create type
+-------------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "types"[0m
+Processing by TypesController#create as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}}
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "types" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "MyString"], ["description", "MyString"], ["created_at", "2015-03-17 01:42:31.105653"], ["updated_at", "2015-03-17 01:42:31.105653"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/types/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "types"[0m
+  [1m[35m (0.5ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------
+TypesControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#index as HTML
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT "types".* FROM "types"[0m
+  Rendered types/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+---------------------------------------------
+TypesControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#new as HTML
+  Rendered types/_form.html.erb (1.6ms)
+  Rendered types/new.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 4ms (Views: 3.7ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------
+ItemTest::Item: test_0001_anonymous
+-----------------------------------
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "items"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:52:00', '2015-03-17 01:52:00', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:52:00', '2015-03-17 01:52:00', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "types"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:52:00', '2015-03-17 01:52:00', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:52:00', '2015-03-17 01:52:00', 298486374)
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-----------------------------------------------
+ItemsControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#index as HTML
+  [1m[35mItem Load (0.1ms)[0m  SELECT "items".* FROM "items"
+  Rendered items/index.html.erb within layouts/application (7.3ms)
+Completed 200 OK in 28ms (Views: 27.8ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+----------------------------------------------
+ItemsControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered items/_form.html.erb (53.7ms)
+  Rendered items/edit.html.erb within layouts/application (56.9ms)
+Completed 200 OK in 59ms (Views: 58.2ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+ItemsControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#new as HTML
+  Rendered items/_form.html.erb (1.9ms)
+  Rendered items/new.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 4ms (Views: 3.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+ItemsControllerTest: test_0006_should update item
+-------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#update as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}, "id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items/980190962
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+ItemsControllerTest: test_0003_should create item
+-------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+Processing by ItemsController#create as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}}
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "items" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "MyString"], ["description", "MyText"], ["created_at", "2015-03-17 01:52:00.380070"], ["updated_at", "2015-03-17 01:52:00.380070"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/items/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+  [1m[35m (0.6ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------
+ItemsControllerTest: test_0007_should destroy item
+--------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+Processing by ItemsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "items" WHERE "items"."id" = ?  [["id", 980190962]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------------------
+ItemsControllerTest: test_0004_should show item
+-----------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered items/show.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------
+ItemTest::Item: test_0001_anonymous
+-----------------------------------
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------------------
+TypesControllerTest: test_0004_should show type
+-----------------------------------------------
+  [1m[36mType Load (0.2ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered types/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-------------------------------------------------
+TypesControllerTest: test_0003_should create type
+-------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+Processing by TypesController#create as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "MyString"], ["description", "MyString"], ["created_at", "2015-03-17 01:52:00.426563"], ["updated_at", "2015-03-17 01:52:00.426563"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------------------
+TypesControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#index as HTML
+  [1m[35mType Load (0.1ms)[0m  SELECT "types".* FROM "types"
+  Rendered types/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+----------------------------------------------
+TypesControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered types/_form.html.erb (2.3ms)
+  Rendered types/edit.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-------------------------------------------------
+TypesControllerTest: test_0006_should update type
+-------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#update as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}, "id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/types/980190962
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+TypesControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#new as HTML
+  Rendered types/_form.html.erb (1.7ms)
+  Rendered types/new.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 4ms (Views: 3.8ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------
+TypesControllerTest: test_0007_should destroy type
+--------------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "types"[0m
+Processing by TypesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "types" WHERE "types"."id" = ?  [["id", 980190962]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "items"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:52:33', '2015-03-17 01:52:33', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:52:33', '2015-03-17 01:52:33', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "types"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:52:33', '2015-03-17 01:52:33', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:52:33', '2015-03-17 01:52:33', 298486374)
+  [1m[36m (0.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-----------------------------------------------
+TypesControllerTest: test_0004_should show type
+-----------------------------------------------
+  [1m[36mType Load (0.2ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered types/show.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 24ms (Views: 22.7ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+TypesControllerTest: test_0006_should update type
+-------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#update as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}, "id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/types/980190962
+Completed 302 Found in 5ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-----------------------------------------------
+TypesControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#index as HTML
+  [1m[35mType Load (0.1ms)[0m  SELECT "types".* FROM "types"
+  Rendered types/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+--------------------------------------------------
+TypesControllerTest: test_0007_should destroy type
+--------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+Processing by TypesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "types" WHERE "types"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/types
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "types"[0m
+  [1m[35m (0.6ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+---------------------------------------------
+TypesControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[35mType Load (0.2ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#new as HTML
+  Rendered types/_form.html.erb (52.1ms)
+  Rendered types/new.html.erb within layouts/application (57.0ms)
+Completed 200 OK in 60ms (Views: 58.9ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+----------------------------------------------
+TypesControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered types/_form.html.erb (1.7ms)
+  Rendered types/edit.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 4ms (Views: 3.7ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+TypesControllerTest: test_0003_should create type
+-------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+Processing by TypesController#create as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "MyString"], ["description", "MyString"], ["created_at", "2015-03-17 01:52:33.905825"], ["updated_at", "2015-03-17 01:52:33.905825"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+--------------------------------------------------
+ItemsControllerTest: test_0007_should destroy item
+--------------------------------------------------
+  [1m[36mItem Load (0.3ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+Processing by ItemsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "items" WHERE "items"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/items
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+  [1m[35m (0.5ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------
+ItemsControllerTest: test_0004_should show item
+-----------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered items/show.html.erb within layouts/application (7.1ms)
+Completed 200 OK in 12ms (Views: 11.2ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------
+ItemsControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#index as HTML
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT "items".* FROM "items"[0m
+  Rendered items/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 5ms (Views: 4.5ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------
+ItemsControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered items/_form.html.erb (3.7ms)
+  Rendered items/edit.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 7ms (Views: 6.2ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+---------------------------------------------
+ItemsControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#new as HTML
+  Rendered items/_form.html.erb (1.9ms)
+  Rendered items/new.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 4ms (Views: 4.0ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+ItemsControllerTest: test_0006_should update item
+-------------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#update as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}, "id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/items/980190962
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+ItemsControllerTest: test_0003_should create item
+-------------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+Processing by ItemsController#create as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "MyString"], ["description", "MyText"], ["created_at", "2015-03-17 01:52:33.982914"], ["updated_at", "2015-03-17 01:52:33.982914"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+  [1m[36m (0.6ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------
+ItemTest::Item: test_0001_anonymous
+-----------------------------------
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "items"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:53:27', '2015-03-17 01:53:27', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:53:27', '2015-03-17 01:53:27', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "types"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:53:27', '2015-03-17 01:53:27', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:53:27', '2015-03-17 01:53:27', 298486374)
+  [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+ItemsControllerTest: test_0003_should create item
+-------------------------------------------------
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+Processing by ItemsController#create as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "MyString"], ["description", "MyText"], ["created_at", "2015-03-17 01:53:27.270981"], ["updated_at", "2015-03-17 01:53:27.270981"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items/980190963
+Completed 302 Found in 7ms (ActiveRecord: 0.5ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+ItemsControllerTest: test_0006_should update item
+-------------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#update as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}, "id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/items/980190962
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-----------------------------------------------
+ItemsControllerTest: test_0004_should show item
+-----------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered items/show.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 29ms (Views: 27.1ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+----------------------------------------------
+ItemsControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered items/_form.html.erb (52.5ms)
+  Rendered items/edit.html.erb within layouts/application (55.7ms)
+Completed 200 OK in 58ms (Views: 57.0ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-----------------------------------------------
+ItemsControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#index as HTML
+  [1m[35mItem Load (0.1ms)[0m  SELECT "items".* FROM "items"
+  Rendered items/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+---------------------------------------------
+ItemsControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#new as HTML
+  Rendered items/_form.html.erb (1.9ms)
+  Rendered items/new.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 4ms (Views: 3.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------
+ItemsControllerTest: test_0007_should destroy item
+--------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+Processing by ItemsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "items" WHERE "items"."id" = ?  [["id", 980190962]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+  [1m[36m (0.5ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+----------------------------------------------
+TypesControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[36mType Load (0.3ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered types/_form.html.erb (2.5ms)
+  Rendered types/edit.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 8ms (Views: 7.1ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+TypesControllerTest: test_0003_should create type
+-------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+Processing by TypesController#create as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "MyString"], ["description", "MyString"], ["created_at", "2015-03-17 01:53:27.423107"], ["updated_at", "2015-03-17 01:53:27.423107"]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-----------------------------------------------
+TypesControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#index as HTML
+  [1m[35mType Load (0.1ms)[0m  SELECT "types".* FROM "types"
+  Rendered types/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+-------------------------------------------------
+TypesControllerTest: test_0006_should update type
+-------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#update as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}, "id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/types/980190962
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+TypesControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#new as HTML
+  Rendered types/_form.html.erb (1.5ms)
+  Rendered types/new.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------
+TypesControllerTest: test_0004_should show type
+-----------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered types/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------
+TypesControllerTest: test_0007_should destroy type
+--------------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "types"[0m
+Processing by TypesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "types" WHERE "types"."id" = ?  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+ItemTest: test_: Item should belong to type. 
+---------------------------------------------
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "items"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:53:41', '2015-03-17 01:53:41', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "items" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2015-03-17 01:53:41', '2015-03-17 01:53:41', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "types"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:53:41', '2015-03-17 01:53:41', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2015-03-17 01:53:41', '2015-03-17 01:53:41', 298486374)
+  [1m[36m (0.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+ItemsControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by ItemsController#new as HTML
+  Rendered items/_form.html.erb (19.0ms)
+  Rendered items/new.html.erb within layouts/application (23.0ms)
+Completed 200 OK in 85ms (Views: 84.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------
+ItemsControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#index as HTML
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT "items".* FROM "items"[0m
+  Rendered items/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+ItemsControllerTest: test_0006_should update item
+-------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#update as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}, "id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items/980190962
+Completed 302 Found in 3ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-----------------------------------------------
+ItemsControllerTest: test_0004_should show item
+-----------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered items/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+----------------------------------------------
+ItemsControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by ItemsController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mItem Load (0.1ms)[0m  [1mSELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  Rendered items/_form.html.erb (2.0ms)
+  Rendered items/edit.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+ItemsControllerTest: test_0003_should create item
+-------------------------------------------------
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+Processing by ItemsController#create as HTML
+  Parameters: {"item"=>{"description"=>"MyText", "title"=>"MyString", "type"=>nil}}
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "items" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "MyString"], ["description", "MyText"], ["created_at", "2015-03-17 01:53:41.542182"], ["updated_at", "2015-03-17 01:53:41.542182"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/items/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+  [1m[35m (0.7ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+--------------------------------------------------
+ItemsControllerTest: test_0007_should destroy item
+--------------------------------------------------
+  [1m[35mItem Load (0.2ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "items"[0m
+Processing by ItemsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mItem Load (0.1ms)[0m  SELECT  "items".* FROM "items" WHERE "items"."id" = ? LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "items" WHERE "items"."id" = ?  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/items
+Completed 302 Found in 3ms (ActiveRecord: 0.5ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "items"
+  [1m[36m (0.5ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------------------
+TypesControllerTest: test_0004_should show type
+-----------------------------------------------
+  [1m[36mType Load (0.2ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered types/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+--------------------------------------------------
+TypesControllerTest: test_0007_should destroy type
+--------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+Processing by TypesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mDELETE FROM "types" WHERE "types"."id" = ?[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/types
+Completed 302 Found in 4ms (ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "types"[0m
+  [1m[35m (0.6ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+-------------------------------------------------
+TypesControllerTest: test_0006_should update type
+-------------------------------------------------
+  [1m[35mType Load (0.2ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#update as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}, "id"=>"980190962"}
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types/980190962
+Completed 302 Found in 4ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+---------------------------------------------
+TypesControllerTest: test_0002_should get new
+---------------------------------------------
+  [1m[35mType Load (0.1ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+Processing by TypesController#new as HTML
+  Rendered types/_form.html.erb (2.2ms)
+  Rendered types/new.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 5ms (Views: 4.7ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-------------------------------------------------
+TypesControllerTest: test_0003_should create type
+-------------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+Processing by TypesController#create as HTML
+  Parameters: {"type"=>{"description"=>"MyString", "title"=>"MyString"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "types" ("title", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "MyString"], ["description", "MyString"], ["created_at", "2015-03-17 01:53:41.612844"], ["updated_at", "2015-03-17 01:53:41.612844"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/types/980190963
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "types"
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+-----------------------------------------------
+TypesControllerTest: test_0001_should get index
+-----------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#index as HTML
+  [1m[35mType Load (0.1ms)[0m  SELECT "types".* FROM "types"
+  Rendered types/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+----------------------------------------------
+TypesControllerTest: test_0005_should get edit
+----------------------------------------------
+  [1m[36mType Load (0.1ms)[0m  [1mSELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1[0m  [["id", 980190962]]
+Processing by TypesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mType Load (0.2ms)[0m  SELECT  "types".* FROM "types" WHERE "types"."id" = ? LIMIT 1  [["id", 980190962]]
+  Rendered types/_form.html.erb (3.1ms)
+  Rendered types/edit.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 9ms (Views: 7.1ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+---------------------------------------------
+ItemTest: test_: Item should belong to type. 
+---------------------------------------------
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
